@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BroHealth Hub – Jadi Cowok Cerdas, Paham Tubuh Sendiri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060c18;--bg2:#0b1628;--bg3:#0f1e38;--card:#101d35;--card2:#142240;
+  --neon:#00f5ff;--neon2:#0099ff;--neon3:#7b2fff;--accent:#ff6b35;--gold:#ffd700;
+  --text:#e8f4ff;--muted:#6b8cae;--border:rgba(0,245,255,0.15);--border2:rgba(0,153,255,0.2);
+  --r:12px;--r2:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--neon2);border-radius:3px}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:14px 5%;background:rgba(6,12,24,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--neon);text-decoration:none;letter-spacing:-0.5px}
+.logo span{color:var(--neon2)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--neon)}
+.nav-right{display:flex;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;border-radius:8px;font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:600;border:none;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--neon2)}
+.btn-outline:hover{background:rgba(0,153,255,0.1);border-color:var(--neon2)}
+.btn-primary{background:linear-gradient(135deg,var(--neon2),var(--neon3));color:#fff}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-neon{background:transparent;border:1.5px solid var(--neon);color:var(--neon);box-shadow:0 0 14px rgba(0,245,255,0.25)}
+.btn-neon:hover{background:rgba(0,245,255,0.08);box-shadow:0 0 22px rgba(0,245,255,0.4)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(0,153,255,0.12) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 20% 80%,rgba(123,47,255,0.1) 0%,transparent 70%),radial-gradient(ellipse 30% 30% at 80% 20%,rgba(0,245,255,0.06) 0%,transparent 60%)}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,245,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.03) 1px,transparent 1px);background-size:60px 60px}
+.hero-content{max-width:580px;position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.2);border-radius:100px;padding:6px 16px;font-size:0.82rem;color:var(--neon);margin-bottom:24px;font-weight:500}
+.hero-tag::before{content:'';display:block;width:7px;height:7px;border-radius:50%;background:var(--neon);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+.hero h1 .hl{background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.1rem;color:var(--muted);margin-bottom:36px;line-height:1.7}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.hero-right{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:420px;display:flex;flex-direction:column;gap:16px;z-index:2}
+.hero-stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px 24px;display:flex;align-items:center;gap:16px;animation:floatCard 3s ease-in-out infinite}
+.hero-stat-card:nth-child(2){animation-delay:.6s}
+.hero-stat-card:nth-child(3){animation-delay:1.2s}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.stat-icon.blue{background:rgba(0,153,255,0.15)}
+.stat-icon.teal{background:rgba(0,245,255,0.1)}
+.stat-icon.purple{background:rgba(123,47,255,0.15)}
+.stat-info h3{font-size:1.4rem;font-weight:700;color:var(--neon2)}
+.stat-info p{font-size:0.82rem;color:var(--muted);margin:0}
+section{padding:80px 5%}
+.section-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(0,153,255,0.08);border:1px solid var(--border2);border-radius:100px;padding:5px 14px;font-size:0.78rem;color:var(--neon2);margin-bottom:14px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.section-title{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;margin-bottom:12px;letter-spacing:-0.5px}
+.section-sub{color:var(--muted);max-width:520px;margin-bottom:48px;font-size:1.05rem}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:24px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;text-decoration:none;color:inherit;display:block}
+.cat-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;opacity:0;transition:.3s}
+.cat-card:hover{border-color:rgba(0,153,255,0.4);transform:translateY(-4px)}
+.cat-card:hover::before{opacity:1}
+.cat-card.c1::before{background:linear-gradient(90deg,var(--neon),var(--neon2))}
+.cat-card.c2::before{background:linear-gradient(90deg,#0fd,#0af)}
+.cat-card.c3::before{background:linear-gradient(90deg,var(--neon3),#f6f)}
+.cat-card.c4::before{background:linear-gradient(90deg,#f90,var(--accent))}
+.cat-card.c5::before{background:linear-gradient(90deg,#f44,#f90)}
+.cat-card.c6::before{background:linear-gradient(90deg,#4f9,#0f9)}
+.cat-card.c7::before{background:linear-gradient(90deg,var(--neon2),var(--neon3))}
+.cat-card.c8::before{background:linear-gradient(90deg,#ffd700,#ff6b35)}
+.cat-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:16px}
+.cat-icon.i1{background:rgba(0,245,255,0.1)}
+.cat-icon.i2{background:rgba(0,255,200,0.1)}
+.cat-icon.i3{background:rgba(123,47,255,0.15)}
+.cat-icon.i4{background:rgba(255,107,53,0.12)}
+.cat-icon.i5{background:rgba(255,60,60,0.12)}
+.cat-icon.i6{background:rgba(80,255,100,0.1)}
+.cat-icon.i7{background:rgba(0,153,255,0.12)}
+.cat-icon.i8{background:rgba(255,215,0,0.12)}
+.cat-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.cat-card p{font-size:0.85rem;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.cat-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.badge{font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:100px;background:rgba(0,153,255,0.12);color:var(--neon2)}
+.xp-badge{font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:100px;background:rgba(255,215,0,0.1);color:var(--gold)}
+.fun-badge{font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:100px;background:rgba(123,47,255,0.15);color:#c9a0ff}
+.read-badge{font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:100px;background:rgba(80,255,100,0.1);color:#4f9}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.game-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:all .25s;text-decoration:none;color:inherit}
+.game-card:hover{border-color:rgba(0,153,255,0.4);transform:translateY(-4px)}
+.game-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden}
+.game-thumb.g1{background:linear-gradient(135deg,#0b1628,#0a2040)}
+.game-thumb.g2{background:linear-gradient(135deg,#0b1628,#1a0b2e)}
+.game-thumb.g3{background:linear-gradient(135deg,#0b1628,#0a1e14)}
+.game-thumb.g4{background:linear-gradient(135deg,#0b1628,#201008)}
+.game-thumb.g5{background:linear-gradient(135deg,#0b1628,#1a0a1a)}
+.game-info{padding:18px 20px}
+.game-info h3{font-size:1rem;font-weight:700;margin-bottom:6px}
+.game-info p{font-size:0.82rem;color:var(--muted);margin-bottom:12px;line-height:1.5}
+.game-tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:0.72rem;padding:3px 10px;border-radius:100px;background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid rgba(255,255,255,0.08)}
+.tag.hot{background:rgba(255,107,53,0.12);color:var(--accent);border-color:rgba(255,107,53,0.2)}
+.tag.new{background:rgba(0,245,255,0.1);color:var(--neon);border-color:var(--border)}
+.quiz-wrapper{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:32px;max-width:680px;margin:0 auto}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.quiz-progress{flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin:0 16px;overflow:hidden}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--neon2),var(--neon));border-radius:3px;transition:width .4s}
+.q-score{font-family:'Syne',sans-serif;font-weight:700;color:var(--gold);font-size:0.9rem}
+.quiz-q{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:24px;line-height:1.4}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.q-opt{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:14px 16px;cursor:pointer;transition:all .2s;font-size:0.9rem;text-align:left;color:var(--text)}
+.q-opt:hover{border-color:var(--neon2);background:rgba(0,153,255,0.07)}
+.q-opt.correct{border-color:#4f9;background:rgba(80,255,100,0.08);color:#4f9}
+.q-opt.wrong{border-color:#f44;background:rgba(255,60,60,0.08);color:#f55}
+.quiz-explain{display:none;background:rgba(0,153,255,0.07);border:1px solid var(--border2);border-radius:var(--r);padding:14px 16px;font-size:0.88rem;color:var(--muted);margin-bottom:20px;line-height:1.6}
+.quiz-explain.show{display:block}
+.quiz-explain strong{color:var(--neon2)}
+.myth-wrapper{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:32px;max-width:680px;margin:0 auto}
+.myth-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:28px;text-align:center;min-height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:1.1rem;font-family:'Syne',sans-serif;font-weight:600;line-height:1.4}
+.myth-btns{display:flex;gap:16px}
+.btn-myth{flex:1;padding:14px;border-radius:var(--r);font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;border:none;cursor:pointer;transition:all .2s}
+.btn-myth.myth{background:rgba(255,107,53,0.15);color:var(--accent);border:1.5px solid rgba(255,107,53,0.3)}
+.btn-myth.myth:hover{background:rgba(255,107,53,0.25)}
+.btn-myth.fact{background:rgba(80,255,100,0.1);color:#4f9;border:1.5px solid rgba(80,255,100,0.25)}
+.btn-myth.fact:hover{background:rgba(80,255,100,0.2)}
+.myth-result{display:none;text-align:center;padding:20px;border-radius:var(--r);margin-top:16px;font-weight:600}
+.myth-result.show{display:block}
+.myth-result.win{background:rgba(80,255,100,0.08);color:#4f9;border:1px solid rgba(80,255,100,0.2)}
+.myth-result.lose{background:rgba(255,60,60,0.08);color:#f55;border:1px solid rgba(255,60,60,0.2)}
+.lb-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.lb-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.lb-header h3{font-size:1rem;font-weight:700}
+.lb-row{display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04);transition:.2s}
+.lb-row:hover{background:rgba(255,255,255,0.02)}
+.lb-row:last-child{border-bottom:none}
+.lb-rank{font-family:'Syne',sans-serif;font-weight:700;width:28px;text-align:center;font-size:0.9rem}
+.lb-rank.gold{color:var(--gold)}
+.lb-rank.silver{color:#aaa}
+.lb-rank.bronze{color:#cd7f32}
+.lb-avatar{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.lb-name{flex:1;font-weight:500;font-size:0.9rem}
+.lb-pts{font-family:'Syne',sans-serif;font-weight:700;color:var(--neon2);font-size:0.9rem}
+.lb-badge{font-size:0.7rem;padding:2px 8px;border-radius:100px;background:rgba(255,215,0,0.1);color:var(--gold)}
+.auth-tabs{display:flex;gap:0;margin-bottom:28px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.auth-tab{flex:1;padding:12px;text-align:center;cursor:pointer;background:transparent;border:none;color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;font-size:0.9rem;transition:.2s}
+.auth-tab.active{background:rgba(0,153,255,0.12);color:var(--neon2)}
+.auth-form{display:none;max-width:440px;margin:0 auto}
+.auth-form.active{display:block}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:0.85rem;color:var(--muted);margin-bottom:8px;font-weight:500}
+.form-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;color:var(--text);font-size:0.92rem;transition:.2s;font-family:'DM Sans',sans-serif}
+.form-input:focus{outline:none;border-color:var(--neon2);background:rgba(0,153,255,0.05)}
+.form-input::placeholder{color:rgba(107,140,174,0.5)}
+.anon-toggle{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--r);background:rgba(0,245,255,0.05);border:1px solid var(--border);cursor:pointer;margin-bottom:18px}
+.toggle{width:44px;height:24px;background:var(--bg2);border-radius:100px;position:relative;transition:.2s;flex-shrink:0}
+.toggle.on{background:var(--neon2)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.on::after{left:23px}
+.badges-preview{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.badge-item{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;min-width:100px}
+.badge-item .bi{font-size:2rem}
+.badge-item span{font-size:0.75rem;color:var(--muted);font-weight:500;text-align:center}
+.badge-item.locked{opacity:.35}
+.badge-item.unlocked{border-color:rgba(255,215,0,0.3)}
+.forum-compose{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px 24px;margin-bottom:20px}
+.forum-compose textarea{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;color:var(--text);resize:none;font-family:'DM Sans',sans-serif;font-size:0.92rem;transition:.2s}
+.forum-compose textarea:focus{outline:none;border-color:var(--neon2)}
+.compose-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:8px}
+.anon-info{font-size:0.8rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.post-list{display:flex;flex-direction:column;gap:14px}
+.post{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px 24px}
+.post-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.post-avatar{width:38px;height:38px;border-radius:10px;background:rgba(0,153,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.post-meta h4{font-size:0.9rem;font-weight:600}
+.post-meta span{font-size:0.78rem;color:var(--muted)}
+.anon-label{margin-left:8px;font-size:0.7rem;padding:2px 8px;border-radius:100px;background:rgba(0,245,255,0.08);color:var(--neon)}
+.post-body{font-size:0.92rem;color:rgba(232,244,255,0.85);line-height:1.65;margin-bottom:14px}
+.post-actions{display:flex;gap:16px}
+.post-act{display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;font-size:0.82rem;color:var(--muted);transition:.2s;padding:6px 12px;border-radius:8px}
+.post-act:hover{color:var(--neon2);background:rgba(0,153,255,0.07)}
+.post-act svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2}
+.reply-box{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.reply-box.open{display:block}
+.reply-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;color:var(--text);resize:none;font-family:'DM Sans',sans-serif;font-size:0.88rem;transition:.2s}
+.reply-input:focus{outline:none;border-color:var(--neon2)}
+.replies{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.reply{display:flex;gap:12px;background:var(--bg2);border-radius:var(--r);padding:12px 14px}
+.reply-av{width:30px;height:30px;border-radius:8px;background:rgba(123,47,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.reply-content h5{font-size:0.82rem;font-weight:600;margin-bottom:4px}
+.reply-content p{font-size:0.82rem;color:rgba(232,244,255,0.8)}
+.xp-bar-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:24px 28px;margin-bottom:24px}
+.xp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.xp-level{display:flex;align-items:center;gap:12px}
+.level-badge{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--neon2),var(--neon3));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#fff}
+.level-info h3{font-size:1rem;font-weight:700}
+.level-info p{font-size:0.8rem;color:var(--muted)}
+.xp-nums{text-align:right}
+.xp-nums strong{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--neon2)}
+.xp-nums span{font-size:0.78rem;color:var(--muted);display:block}
+.xp-track{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--neon2),var(--neon));border-radius:4px;transition:width .6s ease}
+.daily-challenge{background:linear-gradient(135deg,rgba(0,153,255,0.1),rgba(123,47,255,0.1));border:1px solid var(--border2);border-radius:var(--r2);padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.challenge-icon{font-size:2.2rem}
+.challenge-info{flex:1}
+.challenge-info h3{font-size:0.95rem;font-weight:700;margin-bottom:4px}
+.challenge-info p{font-size:0.82rem;color:var(--muted)}
+.challenge-reward{text-align:right}
+.challenge-reward strong{font-family:'Syne',sans-serif;color:var(--gold);display:block;font-size:1rem}
+.challenge-reward span{font-size:0.75rem;color:var(--muted)}
+.chat-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;max-width:640px;margin:0 auto}
+.chat-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.chat-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--neon2),var(--neon3));display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.chat-info h3{font-size:0.95rem;font-weight:700}
+.chat-info span{font-size:0.78rem;color:#4f9}
+.chat-status{width:10px;height:10px;border-radius:50%;background:#4f9;position:relative;flex-shrink:0}
+.chat-status::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(80,255,100,0.3);animation:pulse 2s infinite}
+.chat-messages{padding:16px 20px;height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:10px;max-width:80%}
+.msg.mine{flex-direction:row-reverse;align-self:flex-end}
+.msg-av{width:32px;height:32px;border-radius:9px;background:rgba(0,153,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.msg.mine .msg-av{background:rgba(123,47,255,0.2)}
+.msg-bubble{background:var(--bg2);border-radius:14px;padding:10px 14px;font-size:0.88rem;line-height:1.5;border:1px solid var(--border)}
+.msg.mine .msg-bubble{background:rgba(0,153,255,0.12);border-color:var(--border2)}
+.msg-time{font-size:0.7rem;color:var(--muted);margin-top:4px;text-align:right}
+.chat-input-area{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center}
+.chat-input{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:9px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem}
+.chat-input:focus{outline:none;border-color:var(--neon2)}
+.chat-send{width:38px;height:38px;border-radius:50%;background:var(--neon2);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.chat-send:hover{background:var(--neon)}
+.chat-send svg{width:16px;height:16px;fill:none;stroke:#000;stroke-width:2.5}
+.privacy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.priv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:24px;text-align:center}
+.priv-icon{font-size:2rem;margin-bottom:12px}
+.priv-card h3{font-size:0.95rem;font-weight:700;margin-bottom:6px}
+.priv-card p{font-size:0.82rem;color:var(--muted);line-height:1.5}
+.cta-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;padding:80px 5%}
+.cta-section h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:16px;letter-spacing:-0.5px}
+.cta-section p{color:var(--muted);max-width:500px;margin:0 auto 32px;font-size:1.05rem}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 5% 28px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:36px}
+.footer-brand .logo{font-size:1.3rem;display:block;margin-bottom:12px}
+.footer-brand p{font-size:0.85rem;color:var(--muted);line-height:1.7;max-width:240px}
+.footer-col h4{font-size:0.9rem;font-weight:700;margin-bottom:14px;color:var(--text)}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-col ul li a{font-size:0.85rem;color:var(--muted);text-decoration:none;transition:.2s}
+.footer-col ul li a:hover{color:var(--neon2)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:center}
+.footer-bottom p{font-size:0.8rem;color:var(--muted)}
+.main-content{padding-top:72px}
+.section-nav{display:flex;gap:0;overflow-x:auto;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 5%}
+.section-nav::-webkit-scrollbar{display:none}
+.sec-tab{padding:16px 20px;background:none;border:none;cursor:pointer;color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;font-size:0.88rem;border-bottom:2px solid transparent;transition:.2s;white-space:nowrap}
+.sec-tab.active{color:var(--neon2);border-bottom-color:var(--neon2)}
+.sec-tab:hover{color:var(--text)}
+.section-panel{display:none}
+.section-panel.active{display:block}
+.organ-table{width:100%;border-collapse:collapse;font-size:0.88rem}
+.organ-table th{padding:11px 16px;text-align:left;background:var(--card2);font-size:0.78rem;color:var(--muted);font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+.organ-table td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:top;line-height:1.55}
+.organ-table tr:last-child td{border-bottom:none}
+.organ-table tr:hover td{background:rgba(255,255,255,0.015)}
+/* XP POP */
+.xp-pop{position:fixed;pointer-events:none;font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--gold);text-shadow:0 0 12px rgba(255,215,0,0.6);z-index:2000;animation:xpFloat 1.5s ease-out forwards}
+@keyframes xpFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(1.3)}}
+.notif{position:fixed;bottom:24px;right:24px;background:var(--card2);border:1px solid var(--border2);border-radius:var(--r);padding:14px 18px;font-size:0.88rem;z-index:1000;transform:translateX(200%);transition:.3s;max-width:280px}
+.notif.show{transform:translateX(0)}
+.notif strong{color:var(--neon2);display:block;margin-bottom:2px}
+.tooltip{position:relative}
+.tooltip::after{content:attr(data-tip);position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:0.75rem;color:var(--muted);white-space:nowrap;opacity:0;pointer-events:none;transition:.2s;z-index:10}
+.tooltip:hover::after{opacity:1}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:998;background:rgba(6,12,24,0.97);flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--text);text-decoration:none;transition:.2s}
+.mobile-menu a:hover{color:var(--neon)}
+.mobile-close{position:absolute;top:20px;right:24px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.8rem}
+@media(max-width:900px){.hero-right{display:none}.footer-top{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
+@media(max-width:640px){nav{padding:12px 4%}.nav-links,.nav-right{display:none}.hamburger{display:flex}.hero{padding:80px 4% 40px}section{padding:56px 4%}.quiz-options{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.footer-col{display:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Bro<span>Health</span> Hub</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showSection('home')">Home</a></li>
+    <li><a href="#" onclick="showSection('materi')">Materi</a></li>
+    <li><a href="#" onclick="showSection('games')">Games</a></li>
+    <li><a href="#" onclick="showSection('forum')">Forum</a></li>
+    <li><a href="#" onclick="showSection('konsultasi')">Konsultasi</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn btn-outline" onclick="showSection('akun')">Masuk</button>
+    <button class="btn btn-primary" onclick="showSection('akun')">Daftar Gratis</button>
+  </div>
+  <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="#" onclick="showSection('home');document.getElementById('mobileMenu').classList.remove('open')">Home</a>
+  <a href="#" onclick="showSection('materi');document.getElementById('mobileMenu').classList.remove('open')">Materi</a>
+  <a href="#" onclick="showSection('games');document.getElementById('mobileMenu').classList.remove('open')">Games</a>
+  <a href="#" onclick="showSection('forum');document.getElementById('mobileMenu').classList.remove('open')">Forum</a>
+  <a href="#" onclick="showSection('akun');document.getElementById('mobileMenu').classList.remove('open')">Akun</a>
+</div>
+
+<div class="main-content">
+<div class="section-nav">
+  <button class="sec-tab active" onclick="showSection('home')">🏠 Home</button>
+  <button class="sec-tab" onclick="showSection('materi')">📚 Materi</button>
+  <button class="sec-tab" onclick="showSection('games')">🎮 Games</button>
+  <button class="sec-tab" onclick="showSection('akun')">👤 Akun</button>
+  <button class="sec-tab" onclick="showSection('forum')">💬 Forum</button>
+  <button class="sec-tab" onclick="showSection('konsultasi')">🔒 Konsultasi</button>
+  <button class="sec-tab" onclick="showSection('gamifikasi')">⚡ Progress</button>
+</div>
+
+<!-- HOME -->
+<div class="section-panel active" id="panel-home">
+  <section class="hero" style="min-height:calc(100vh - 110px)">
+    <div class="hero-bg"></div><div class="grid-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Platform Edukasi #1 Untuk Bro</div>
+      <h1>Jadi Cowok <span class="hl">Cerdas,</span><br>Paham Tubuh<br>Sendiri.</h1>
+      <p>Platform edukasi kesehatan reproduksi paling keren buat cowok usia 13–18. No judge, no malu. Cuma ilmu dan game seru.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" style="font-size:1rem;padding:13px 28px" onclick="showSection('materi')">🚀 Mulai Belajar</button>
+        <button class="btn btn-neon" style="font-size:1rem;padding:13px 28px" onclick="showSection('games')">🎮 Main Game</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-card"><div class="stat-icon blue">🧠</div><div class="stat-info"><h3>11 Topik</h3><p>Materi lengkap & terverifikasi</p></div></div>
+      <div class="hero-stat-card"><div class="stat-icon teal">🎯</div><div class="stat-info"><h3>5 Mini Game</h3><p>Belajar sambil main, kumpulkan XP</p></div></div>
+      <div class="hero-stat-card"><div class="stat-icon purple">🔒</div><div class="stat-info"><h3>100% Anonim</h3><p>Privasi terjaga sepenuhnya</p></div></div>
+    </div>
+  </section>
+
+  <section style="background:var(--bg2)">
+    <div class="section-tag">Kenapa BroHealth Hub?</div>
+    <h2 class="section-title">Beda dari yang Lain</h2>
+    <p class="section-sub">Bukan buku pelajaran biasa. Ini tempat cowok bisa belajar dengan cara yang asyik.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+      <div class="cat-card c1"><div class="cat-icon i1">🎮</div><h3>Belajar Sambil Main</h3><p>Quiz, game, dan challenge seru yang bikin belajar tidak membosankan.</p></div>
+      <div class="cat-card c2"><div class="cat-icon i2">🔒</div><h3>Anonim & Aman</h3><p>Tanya apapun tanpa takut dihakimi. Username anonim diperbolehkan.</p></div>
+      <div class="cat-card c3"><div class="cat-icon i3">🏆</div><h3>Sistem Reward</h3><p>Kumpulkan XP, naik level, dan raih badge keren setiap kali belajar.</p></div>
+      <div class="cat-card c4"><div class="cat-icon i4">👨‍⚕️</div><h3>Konten Terverifikasi</h3><p>Semua materi dibuat bersama dokter dan ahli kesehatan terpercaya.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-tag">Keamanan & Privasi</div>
+    <h2 class="section-title">Data Kamu Aman di Sini</h2>
+    <p class="section-sub">Kami serius soal privasi. Setiap data terenkripsi dan tidak pernah dijual.</p>
+    <div class="privacy-grid">
+      <div class="priv-card"><div class="priv-icon">🔐</div><h3>Enkripsi E2E</h3><p>Data terenkripsi end-to-end</p></div>
+      <div class="priv-card"><div class="priv-icon">🎭</div><h3>Anonim Penuh</h3><p>Boleh pakai nama samaran</p></div>
+      <div class="priv-card"><div class="priv-icon">🚫</div><h3>No Iklan</h3><p>Tidak ada iklan, tidak ada tracking</p></div>
+      <div class="priv-card"><div class="priv-icon">📋</div><h3>GDPR Compliant</h3><p>Standar privasi internasional</p></div>
+    </div>
+  </section>
+
+  <div class="cta-section">
+    <h2>Siap Jadi <span style="background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Bro Cerdas?</span></h2>
+    <p>Bergabung gratis sekarang. Tidak perlu nama asli, tidak ada pertanyaan aneh.</p>
+    <div class="cta-btns">
+      <button class="btn btn-primary" style="font-size:1rem;padding:13px 28px" onclick="showSection('akun')">Daftar Gratis Sekarang</button>
+      <button class="btn btn-outline" style="font-size:1rem;padding:13px 28px" onclick="showSection('materi')">Lihat Materi Dulu</button>
+    </div>
+  </div>
+</div>
+
+<!-- MATERI -->
+<div class="section-panel" id="panel-materi">
+  <section>
+    <div class="section-tag">Edukasi</div>
+    <h2 class="section-title">Materi Edukasi</h2>
+    <p class="section-sub">Topik lengkap yang perlu setiap cowok tahu. Baca & kumpulkan XP!</p>
+    <div class="cat-grid" id="materiGrid"></div>
+  </section>
+  <section id="artikelSection" style="display:none">
+    <button class="btn btn-outline" style="margin-bottom:24px" onclick="closeArtikel()">← Kembali ke Materi</button>
+    <div id="artikelContent" style="max-width:720px"></div>
+  </section>
+</div>
+
+<!-- GAMES -->
+<div class="section-panel" id="panel-games">
+  <section id="gameListSection">
+    <div class="section-tag">Mini Games</div>
+    <h2 class="section-title">Game Edukatif</h2>
+    <p class="section-sub">Belajar sambil main. Setiap game kasih XP dan kesempatan masuk leaderboard!</p>
+    <div class="games-grid">
+      <div class="game-card" onclick="showGame('quiz')"><div class="game-thumb g1"><span>🧠</span></div><div class="game-info"><h3>Quiz Challenge</h3><p>10 pertanyaan pilihan ganda. Tes seberapa pintar kamu soal kesehatan reproduksi.</p><div class="game-tags"><span class="tag hot">Hot 🔥</span><span class="tag">+50 XP</span><span class="tag">10 soal</span></div></div></div>
+      <div class="game-card" onclick="showGame('myth')"><div class="game-thumb g2"><span>🔍</span></div><div class="game-info"><h3>Mitos vs Fakta</h3><p>Bisa bedain mana mitos, mana fakta? Tebak dengan cepat sebelum waktu habis!</p><div class="game-tags"><span class="tag new">Baru ✨</span><span class="tag">+30 XP</span><span class="tag">15 ronde</span></div></div></div>
+      <div class="game-card" onclick="showGame('spin')"><div class="game-thumb g4"><span>🎰</span></div><div class="game-info"><h3>Spin Wheel</h3><p>Putar roda pertanyaan acak. Jawab dengan benar dan klaim hadiahmu!</p><div class="game-tags"><span class="tag">+20 XP</span><span class="tag">Random</span></div></div></div>
+      <div class="game-card" onclick="showGame('memory')"><div class="game-thumb g5"><span>🃏</span></div><div class="game-info"><h3>Memory Card</h3><p>Cocokkan kartu edukasi. Latih memori sambil belajar fakta kesehatan.</p><div class="game-tags"><span class="tag new">Baru ✨</span><span class="tag">+40 XP</span><span class="tag">16 kartu</span></div></div></div>
+      <div class="game-card" onclick="showSection('gamifikasi')"><div class="game-thumb g3"><span>🏆</span></div><div class="game-info"><h3>Leaderboard</h3><p>Lihat siapa yang paling top. Bisa kamu geser mereka dari posisi satu?</p><div class="game-tags"><span class="tag">Global</span><span class="tag">Update Real-time</span></div></div></div>
+    </div>
+  </section>
+  <section id="gameArea" style="display:none">
+    <button class="btn btn-outline" style="margin-bottom:24px" onclick="closeGame()">← Kembali ke Games</button>
+    <div id="gameContent"></div>
+  </section>
+</div>
+
+<!-- AKUN -->
+<div class="section-panel" id="panel-akun">
+  <section>
+    <div class="section-tag">User Account</div>
+    <h2 class="section-title">Akun Kamu</h2>
+    <p class="section-sub">Username anonim diperbolehkan. Privasi terjaga sepenuhnya.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuth('login')">Masuk</button>
+      <button class="auth-tab" onclick="switchAuth('register')">Daftar</button>
+    </div>
+    <div class="auth-form active" id="loginForm">
+      <div class="form-group"><label>Username atau Email</label><input class="form-input" type="text" placeholder="BroAnon123 atau email@kamu.com"></div>
+      <div class="form-group"><label>Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;font-size:1rem;margin-top:4px" onclick="fakeLogin()">Masuk Sekarang 🚀</button>
+      <p style="text-align:center;margin-top:12px;font-size:0.82rem;color:var(--muted)">Lupa password? <a href="#" style="color:var(--neon2)">Reset di sini</a></p>
+    </div>
+    <div class="auth-form" id="registerForm">
+      <div class="anon-toggle" onclick="toggleAnon(this)"><div class="toggle" id="anonToggle"></div><div><div style="font-weight:600;font-size:0.9rem">Mode Anonim</div><div style="font-size:0.78rem;color:var(--muted)">Pakai username acak, tidak perlu nama asli</div></div></div>
+      <div class="form-group"><label>Username (boleh nama samaran)</label><input class="form-input" type="text" placeholder="CoolBro999" id="regUsername"></div>
+      <div class="form-group"><label>Email (opsional untuk recovery)</label><input class="form-input" type="email" placeholder="email@kamu.com (optional)"></div>
+      <div class="form-group"><label>Password</label><input class="form-input" type="password" placeholder="Minimal 8 karakter"></div>
+      <div class="form-group"><label>Umur</label><select class="form-input" style="margin:0"><option value="">Pilih rentang umur</option><option>13–15 tahun</option><option>16–18 tahun</option></select></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;font-size:1rem;margin-top:4px" onclick="fakeRegister()">Buat Akun Gratis ⚡</button>
+    </div>
+    <div style="margin-top:48px">
+      <div class="section-tag">Pencapaian</div>
+      <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:8px">Badge Kamu</h3>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:20px">Kumpulkan badge dengan belajar dan bermain.</p>
+      <div class="badges-preview">
+        <div class="badge-item unlocked tooltip" data-tip="Baca materi pertama"><div class="bi">🌱</div><span>Bro Pemula</span></div>
+        <div class="badge-item locked tooltip" data-tip="Selesaikan 5 quiz"><div class="bi">🧠</div><span>Bro Pintar</span></div>
+        <div class="badge-item locked tooltip" data-tip="Capai level 10"><div class="bi">👑</div><span>Master Health</span></div>
+        <div class="badge-item locked tooltip" data-tip="7 hari berturut-turut"><div class="bi">🔥</div><span>Streak 7</span></div>
+        <div class="badge-item locked tooltip" data-tip="Post pertama di forum"><div class="bi">💬</div><span>Forum Pro</span></div>
+        <div class="badge-item locked tooltip" data-tip="Skor perfek di quiz"><div class="bi">⭐</div><span>Perfect Score</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FORUM -->
+<div class="section-panel" id="panel-forum">
+  <section>
+    <div class="section-tag">Komunitas</div>
+    <h2 class="section-title">Forum Anonim</h2>
+    <p class="section-sub">Tanya apapun tanpa malu. Komunitas ini judgment-free zone.</p>
+    <div class="forum-compose">
+      <textarea rows="3" placeholder="Tanya atau share sesuatu... Identitasmu aman di sini 🔒" id="postInput"></textarea>
+      <div class="compose-footer">
+        <div class="anon-info">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--muted)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Postingan ini 100% anonim
+        </div>
+        <button class="btn btn-primary" onclick="addPost()">Kirim Post ✉️</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+      <button class="btn btn-outline" style="font-size:0.82rem;padding:7px 14px">🔥 Trending</button>
+      <button class="btn btn-outline" style="font-size:0.82rem;padding:7px 14px">🕐 Terbaru</button>
+      <button class="btn btn-outline" style="font-size:0.82rem;padding:7px 14px">❓ Belum Terjawab</button>
+    </div>
+    <div class="post-list" id="postList"></div>
+  </section>
+</div>
+
+<!-- KONSULTASI -->
+<div class="section-panel" id="panel-konsultasi">
+  <section>
+    <div class="section-tag">Chat Privat</div>
+    <h2 class="section-title">Konsultasi Privat</h2>
+    <p class="section-sub">Chat anonim dengan konselor kesehatan. Pesan terenkripsi dan tidak tersimpan permanen.</p>
+    <div class="chat-wrap">
+      <div class="chat-header">
+        <div class="chat-avatar">👨‍⚕️</div>
+        <div class="chat-info"><h3>Kak Health Advisor</h3><span>● Online sekarang</span></div>
+        <div class="chat-status"></div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg"><div class="msg-av">👨‍⚕️</div><div><div class="msg-bubble">Halo Bro! 👋 Aku di sini untuk bantu kamu. Kamu bisa tanya apapun soal kesehatan. Semua percakapan 100% privat dan aman.</div><div class="msg-time">10:30</div></div></div>
+        <div class="msg"><div class="msg-av">👨‍⚕️</div><div><div class="msg-bubble">Tidak ada yang akan tahu siapa kamu. Mau tanya apa?</div><div class="msg-time">10:30</div></div></div>
+      </div>
+      <div class="chat-input-area">
+        <input class="chat-input" type="text" placeholder="Ketik pesanmu... 🔒 Terenkripsi" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg></button>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:16px">🔒 Semua pesan dienkripsi. Bukan layanan darurat. Untuk kondisi darurat, hubungi 119.</p>
+  </section>
+</div>
+
+<!-- GAMIFIKASI -->
+<div class="section-panel" id="panel-gamifikasi">
+  <section>
+    <div class="section-tag">Progress & Reward</div>
+    <h2 class="section-title">Level & XP Kamu</h2>
+    <p class="section-sub">Baca materi dan kerjakan soal untuk dapat XP. Naik level, raih badge, dan masuk leaderboard!</p>
+    <div class="xp-bar-wrap">
+      <div class="xp-header">
+        <div class="xp-level">
+          <div class="level-badge" id="levelBadge">Lv1</div>
+          <div class="level-info">
+            <h3 id="levelTitle">Bro Baru 🌱</h3>
+            <p id="levelSub">Level 1 dari 20</p>
+          </div>
+        </div>
+        <div class="xp-nums">
+          <strong id="xpDisplay">0 / 100 XP</strong>
+          <span>ke level berikutnya</span>
+        </div>
+      </div>
+      <div class="xp-track"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+    </div>
+    <div class="daily-challenge" style="margin-bottom:32px">
+      <div class="challenge-icon">⚡</div>
+      <div class="challenge-info"><h3>Daily Challenge Hari Ini</h3><p>Selesaikan 1 quiz tentang Kesehatan Reproduksi</p></div>
+      <div class="challenge-reward"><strong>+75 XP</strong><span>Reward hari ini</span></div>
+      <button class="btn btn-primary" onclick="showSection('games')">Main Sekarang</button>
+    </div>
+    <div class="section-tag">Leaderboard</div>
+    <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:8px">Top Bro Minggu Ini</h3>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:20px">Update setiap hari Senin.</p>
+    <div class="lb-wrap" id="leaderboard"></div>
+  </section>
+</div>
+
+</div><!-- end main-content -->
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">Bro<span>Health</span> Hub</a>
+      <p>Platform edukasi kesehatan reproduksi laki-laki yang aman, seru, dan tidak menghakimi. Untuk cowok usia 13–18 tahun.</p>
+    </div>
+    <div class="footer-col"><h4>Materi</h4><ul><li><a href="#">Kesehatan Reproduksi</a></li><li><a href="#">Organ Reproduksi</a></li><li><a href="#">Fun Fact & Mitos</a></li><li><a href="#">Kesehatan Mental</a></li></ul></div>
+    <div class="footer-col"><h4>Platform</h4><ul><li><a href="#">Mini Games</a></li><li><a href="#">Forum Anonim</a></li><li><a href="#">Konsultasi</a></li><li><a href="#">Leaderboard</a></li></ul></div>
+    <div class="footer-col"><h4>Informasi</h4><ul><li><a href="#">Kebijakan Privasi</a></li><li><a href="#">Syarat & Ketentuan</a></li><li><a href="#">Tentang Kami</a></li><li><a href="#">Kontak</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 BroHealth Hub. Dibuat dengan ❤️ untuk generasi muda Indonesia.</p>
+  </div>
+</footer>
+
+<div class="notif" id="notif"><strong id="notifTitle"></strong><span id="notifMsg"></span></div>
+
+<script>
+// ============ XP STATE ============
+const XP_PER_LEVEL = [100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000,9999];
+const LEVEL_TITLES = ['Bro Baru 🌱','Bro Penasaran 👀','Bro Belajar 📖','Bro Aktif 💪','Bro Pintar 🧠','Bro Keren 😎','Bro Sehat 🏃','Bro Pro 🎯','Bro Expert 🔬','Master Health 👑'];
+let totalXP = 0;
+let readMateri = new Set();
+
+function getLevelInfo(xp) {
+  let level = 1, remaining = xp;
+  for (let i = 0; i < XP_PER_LEVEL.length; i++) {
+    if (remaining < XP_PER_LEVEL[i]) {
+      return { level: level + i, current: remaining, needed: XP_PER_LEVEL[i], pct: (remaining / XP_PER_LEVEL[i]) * 100 };
+    }
+    remaining -= XP_PER_LEVEL[i];
+  }
+  return { level: 20, current: XP_PER_LEVEL[19], needed: XP_PER_LEVEL[19], pct: 100 };
+}
+
+function updateXPUI() {
+  const info = getLevelInfo(totalXP);
+  const titleIdx = Math.min(info.level - 1, LEVEL_TITLES.length - 1);
+  document.getElementById('levelBadge').textContent = 'Lv' + info.level;
+  document.getElementById('levelTitle').textContent = LEVEL_TITLES[titleIdx];
+  document.getElementById('levelSub').textContent = 'Level ' + info.level + ' dari 20';
+  document.getElementById('xpDisplay').textContent = info.current + ' / ' + info.needed + ' XP';
+  document.getElementById('xpFill').style.width = info.pct + '%';
+}
+
+function earnXP(amount, topic, event) {
+  const prevInfo = getLevelInfo(totalXP);
+  totalXP += amount;
+  const newInfo = getLevelInfo(totalXP);
+  updateXPUI();
+
+  if (event) {
+    const pop = document.createElement('div');
+    pop.className = 'xp-pop';
+    pop.textContent = '+' + amount + ' XP';
+    pop.style.left = (event.clientX || window.innerWidth/2) + 'px';
+    pop.style.top = (event.clientY || window.innerHeight/2) + 'px';
+    document.body.appendChild(pop);
+    setTimeout(() => pop.remove(), 1500);
+  }
+
+  if (newInfo.level > prevInfo.level) {
+    showNotif('🎉 LEVEL UP!', 'Kamu naik ke Level ' + newInfo.level + '! ' + LEVEL_TITLES[Math.min(newInfo.level-1, LEVEL_TITLES.length-1)]);
+  } else {
+    showNotif('⚡ XP Earned!', '+' + amount + ' XP dari ' + topic + ' · Total: ' + totalXP + ' XP');
+  }
+}
+
+// ============ MATERI DATA ============
+const materiData = [
+  {id:1,icon:'📖',cat:'Dasar',catClass:'c1',iconClass:'i1',xp:50,title:'Pengertian Kesehatan Reproduksi',desc:'Apa itu kesehatan reproduksi? Mengapa penting buat cowok muda? Mulai dari sini!',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Pengertian Kesehatan Reproduksi</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 5 menit baca · 📚 Dasar · ⚡ +50 XP</p>
+<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px">Apa itu Kesehatan Reproduksi?</h3>
+<p style="line-height:1.75;margin-bottom:16px">Menurut WHO, <strong style="color:var(--neon2)">kesehatan reproduksi</strong> adalah kondisi sejahtera secara fisik, mental, dan sosial yang berkaitan dengan sistem reproduksi, fungsi, dan prosesnya — bukan sekadar bebas dari penyakit.</p>
+<p style="line-height:1.75;margin-bottom:20px">Artinya, kesehatan reproduksi bukan cuma soal organ intim. Ini mencakup kemampuan seseorang untuk memiliki kehidupan seksual yang bertanggung jawab, aman, dan memuaskan, serta kebebasan untuk menentukan kapan dan seberapa sering memiliki anak.</p>
+<div style="background:rgba(0,153,255,0.07);border-left:3px solid var(--neon2);border-radius:0 var(--r) var(--r) 0;padding:16px 20px;margin-bottom:24px"><strong style="color:var(--neon2)">💡 Intinya:</strong> Sehat reproduksi = fisik sehat + mental sehat + tahu hak & tanggung jawabmu.</div>
+<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px">Kenapa Ini Penting Buat Cowok?</h3>
+<ul style="padding-left:20px;line-height:2.1;margin-bottom:20px"><li>Memahami tubuh sendiri agar bisa menjaganya dengan benar</li><li>Mencegah penyakit yang bisa dicegah sejak dini</li><li>Membuat keputusan yang lebih bijak terkait hubungan dan seksualitas</li><li>Menghilangkan rasa malu yang tidak perlu — info yang benar itu kekuatan</li></ul>`},
+  {id:2,icon:'🫀',cat:'Anatomi',catClass:'c2',iconClass:'i2',xp:75,title:'Macam-macam Organ Reproduksi Laki-laki',desc:'Kenali organ reproduksimu: nama, letak, dan fungsinya. Pengetahuan dasar yang wajib kamu tahu.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Organ Reproduksi Laki-laki</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 6 menit baca · 🫀 Anatomi · ⚡ +75 XP</p>
+<p style="line-height:1.75;margin-bottom:20px">Sistem reproduksi laki-laki terdiri dari organ <strong style="color:var(--neon2)">eksternal</strong> dan <strong style="color:var(--neon2)">internal</strong>. Masing-masing punya fungsi spesifik yang saling mendukung.</p>
+<h3 style="font-size:1.1rem;font-weight:700;margin:20px 0 12px">🔵 Organ Eksternal</h3>
+<div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px"><table class="organ-table"><thead><tr><th>Organ</th><th>Fungsi Utama</th></tr></thead><tbody><tr><td><strong>Penis</strong></td><td>Saluran keluar urin dan semen; alat reproduksi</td></tr><tr><td><strong>Skrotum</strong></td><td>Melindungi testis; mengatur suhu agar produksi sperma optimal</td></tr><tr><td><strong>Testis (2 buah)</strong></td><td>Memproduksi sperma dan hormon testosteron</td></tr></tbody></table></div>
+<h3 style="font-size:1.1rem;font-weight:700;margin:20px 0 12px">🟢 Organ Internal</h3>
+<div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:24px"><table class="organ-table"><thead><tr><th>Organ</th><th>Fungsi Utama</th></tr></thead><tbody><tr><td><strong>Epididimis</strong></td><td>Tempat pematangan dan penyimpanan sperma (~2–3 minggu)</td></tr><tr><td><strong>Vas Deferens</strong></td><td>Saluran yang membawa sperma saat ejakulasi</td></tr><tr><td><strong>Vesikula Seminalis</strong></td><td>Menghasilkan cairan kaya fruktosa sebagai energi sperma</td></tr><tr><td><strong>Kelenjar Prostat</strong></td><td>Menghasilkan cairan basa pelindung sperma</td></tr><tr><td><strong>Uretra</strong></td><td>Saluran bersama untuk urin dan semen (tidak bersamaan)</td></tr></tbody></table></div>`},
+  {id:3,icon:'💨',cat:'Fun Fact',catClass:'c3',iconClass:'i3',xp:30,title:'Fun Fact & Mitos: Bau Badan saat Pubertas',desc:'Kenapa bau badan muncul saat pubertas? Mitos dan fakta yang perlu kamu tahu.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Bau Badan saat Pubertas</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 4 menit baca · 💨 Fun Fact · ⚡ +30 XP</p>
+<div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+${[['fun','💡 Fun Fact','Bau badan berasal dari bakteri, bukan keringat itu sendiri. Keringat hampir tidak berbau — bakteri di kulit yang memecah keringat dan menghasilkan bau.'],['mitos','❌ Mitos','Semakin banyak mandi, bau badan pasti hilang selamanya.'],['fakta','✅ Fakta','Mandi menghilangkan bakteri sementara. Yang penting adalah mandi <em>teratur</em>, bukan sesering mungkin.'],['mitos','❌ Mitos','Deodoran dan antiperspiran adalah hal yang sama.'],['fakta','✅ Fakta','<strong style="color:var(--neon2)">Deodoran</strong> = menutupi bau. <strong style="color:var(--neon2)">Antiperspiran</strong> = mengurangi produksi keringat. Keduanya berbeda.']].map(([t,h,b])=>`<div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${t==='fun'?'var(--neon)':t==='fakta'?'#4f9':'#f77'};border-radius:0 var(--r) var(--r) 0;padding:14px 16px"><div style="font-size:0.78rem;font-weight:700;color:${t==='fun'?'var(--neon)':t==='fakta'?'#4f9':'#f77'};margin-bottom:6px">${h}</div><p style="font-size:0.88rem;line-height:1.65">${b}</p></div>`).join('')}
+</div>`},
+  {id:4,icon:'🫧',cat:'Fun Fact',catClass:'c6',iconClass:'i6',xp:30,title:'Fun Fact & Mitos: Jerawat saat Pubertas',desc:'Jerawat musuh remaja? Ketahui penyebab sebenarnya dan mitos yang selama ini kamu percaya.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Jerawat saat Pubertas</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 4 menit baca · 🫧 Fun Fact · ⚡ +30 XP</p>
+<div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+${[['fun','💡 Fun Fact','Jerawat muncul karena tiga faktor: produksi minyak berlebih, pori-pori tersumbat, dan bakteri <em>Cutibacterium acnes</em>.'],['fun','💡 Fun Fact','Hampir <strong style="color:var(--neon2)">85% remaja</strong> mengalami jerawat. Ini respons normal tubuh terhadap lonjakan hormon androgen.'],['mitos','❌ Mitos','Jerawat muncul karena jarang cuci muka.'],['fakta','✅ Fakta','Jerawat terutama dipicu hormon dari dalam, bukan kotoran dari luar. Mencuci muka terlalu keras justru bisa memperparah.'],['mitos','❌ Mitos','Jerawat harus dipencet agar cepat hilang.'],['fakta','✅ Fakta','Memencet jerawat mendorong bakteri lebih dalam dan bisa meninggalkan bekas permanen.']].map(([t,h,b])=>`<div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${t==='fun'?'var(--neon)':t==='fakta'?'#4f9':'#f77'};border-radius:0 var(--r) var(--r) 0;padding:14px 16px"><div style="font-size:0.78rem;font-weight:700;color:${t==='fun'?'var(--neon)':t==='fakta'?'#4f9':'#f77'};margin-bottom:6px">${h}</div><p style="font-size:0.88rem;line-height:1.65">${b}</p></div>`).join('')}
+</div>`},
+  {id:5,icon:'🌙',cat:'Fun Fact',catClass:'c7',iconClass:'i7',xp:30,title:'Fun Fact & Mitos: Mimpi Basah',desc:'Normal atau tidak? Bongkar semua mitos soal mimpi basah yang bikin banyak remaja bingung.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Mimpi Basah: Normal atau Tidak?</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 4 menit baca · 🌙 Fun Fact · ⚡ +30 XP</p>
+<div style="background:rgba(0,153,255,0.07);border:1px solid var(--border2);border-radius:var(--r);padding:16px;margin-bottom:20px"><strong style="color:var(--neon2)">Definisi:</strong> Mimpi basah adalah ejakulasi yang terjadi saat tidur. Ini adalah <strong style="color:#4f9">proses alami dan sehat</strong>.</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+${[['fun','💡 Fun Fact','Mimpi basah pertama biasanya terjadi antara usia <strong style="color:var(--neon2)">11–15 tahun</strong> — tanda sistem reproduksi mulai berfungsi.'],['mitos','❌ Mitos','Mimpi basah adalah tanda penyakit atau gangguan kesehatan.'],['fakta','✅ Fakta','Ini adalah mekanisme alami tubuh. Justru tanda sistem reproduksi bekerja baik.'],['mitos','❌ Mitos','Mimpi basah akan melemahkan tubuh dan menurunkan stamina.'],['fakta','✅ Fakta','Tidak ada bukti ilmiah yang mendukung klaim ini sama sekali.'],['mitos','❌ Mitos','Mimpi basah adalah tanda seseorang tidak bisa mengontrol diri.'],['fakta','✅ Fakta','Mimpi basah terjadi saat tidur dan tidak bisa dikontrol secara sadar. Tidak ada hubungannya dengan pengendalian diri.']].map(([t,h,b])=>`<div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${t==='fun'?'var(--neon)':t==='fakta'?'#4f9':'#f77'};border-radius:0 var(--r) var(--r) 0;padding:14px 16px"><div style="font-size:0.78rem;font-weight:700;color:${t==='fun'?'var(--neon)':t==='fakta'?'#4f9':'#f77'};margin-bottom:6px">${h}</div><p style="font-size:0.88rem;line-height:1.65">${b}</p></div>`).join('')}
+</div>`},
+  {id:6,icon:'📵',cat:'Fun Fact',catClass:'c5',iconClass:'i5',xp:50,title:'Fun Fact & Mitos: Dampak Pornografi',desc:'Fakta ilmiah tentang dampak pornografi pada otak dan hubungan. Informasi berbasis riset, bukan ceramah.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Dampak Pornografi: Fakta Ilmiah</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 6 menit baca · 📵 Fun Fact · ⚡ +50 XP</p>
+<div style="background:rgba(255,107,53,0.07);border:1px solid rgba(255,107,53,0.2);border-radius:var(--r);padding:16px;margin-bottom:20px"><strong style="color:var(--accent)">⚠️ Catatan:</strong> Konten ini berbasis penelitian ilmiah untuk edukasi. Bukan ceramah moral.</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+${[['fun','💡 Fun Fact — Otak & Dopamin','Menonton pornografi mengaktifkan sistem reward otak dan melepaskan dopamin. Paparan berulang bisa membuat otak memerlukan stimulus yang lebih kuat (toleransi).'],['fun','💡 Fun Fact — Ekspektasi','Penelitian menunjukkan konsumsi pornografi reguler bisa membentuk ekspektasi tidak realistis tentang hubungan seksual.'],['mitos','❌ Mitos','Pornografi adalah cara terbaik belajar tentang seks dan hubungan.'],['fakta','✅ Fakta','Pornografi adalah produk hiburan yang direkayasa — bukan edukasi seksual. Mengandalkannya membangun pemahaman yang salah.'],['mitos','❌ Mitos','Jika sudah kecanduan pornografi, tidak bisa sembuh.'],['fakta','✅ Fakta','Perilaku kompulsif bisa ditangani dengan dukungan psikolog atau konselor. Otak memiliki neuroplastisitas — kemampuan untuk pulih.']].map(([t,h,b])=>`<div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${t==='fun'?'var(--neon)':t==='fakta'?'#4f9':'#f77'};border-radius:0 var(--r) var(--r) 0;padding:14px 16px"><div style="font-size:0.78rem;font-weight:700;color:${t==='fun'?'var(--neon)':t==='fakta'?'#4f9':'#f77'};margin-bottom:6px">${h}</div><p style="font-size:0.88rem;line-height:1.65">${b}</p></div>`).join('')}
+</div>`},
+  {id:7,icon:'🌱',cat:'Pubertas',catClass:'c1',iconClass:'i1',xp:50,title:'Pubertas pada Laki-laki: Panduan Lengkap',desc:'Pahami perubahan fisik dan emosional saat pubertas. Normal, wajar, dan kamu tidak sendiri.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Pubertas pada Laki-laki</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 5 menit baca · 🌱 Pubertas · ⚡ +50 XP</p>
+<p style="line-height:1.75;margin-bottom:16px">Pubertas biasanya dimulai antara usia <strong style="color:var(--neon2)">9–14 tahun</strong> dan bisa berlangsung hingga usia 17–18 tahun.</p>
+<h3 style="font-size:1.1rem;font-weight:700;margin:20px 0 10px">Perubahan Fisik yang Normal</h3>
+<ul style="padding-left:20px;line-height:2.1;margin-bottom:20px"><li>Pertumbuhan tinggi badan yang cepat</li><li>Suara menjadi lebih berat/parau</li><li>Tumbuh rambut di ketiak, wajah, dan area intim</li><li>Bahu melebar, otot berkembang</li><li>Jerawat muncul karena produksi minyak meningkat</li><li>Mimpi basah — ini 100% normal dan sehat</li></ul>
+<div style="background:rgba(0,153,255,0.07);border:1px solid var(--border2);border-radius:var(--r);padding:16px"><strong style="color:var(--neon2)">💡 Fun Fact:</strong> Testosteron meningkat hingga 30x lipat selama masa pubertas!</div>`},
+  {id:8,icon:'🚿',cat:'Kebersihan',catClass:'c2',iconClass:'i2',xp:50,title:'Kebersihan Organ Reproduksi: Do & Don\'t',desc:'Tips menjaga kebersihan yang benar. Hindari masalah kesehatan dengan kebiasaan sederhana.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Kebersihan Organ Reproduksi</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 4 menit baca · 🚿 Kebersihan · ⚡ +50 XP</p>
+<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px">✅ Yang Harus Dilakukan</h3>
+<ul style="padding-left:20px;line-height:2.1;margin-bottom:20px"><li>Cuci dengan air bersih minimal sekali sehari</li><li>Keringkan dengan baik setelah mandi</li><li>Ganti pakaian dalam setiap hari</li><li>Pilih bahan pakaian dalam katun yang menyerap keringat</li></ul>
+<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px">❌ Yang Harus Dihindari</h3>
+<ul style="padding-left:20px;line-height:2.1;margin-bottom:20px"><li>Jangan pakai sabun beraroma kuat di area sensitif</li><li>Hindari pakaian dalam terlalu ketat terlalu lama</li><li>Jangan abaikan gejala seperti gatal atau bau tidak biasa</li></ul>`},
+  {id:9,icon:'🔍',cat:'Mitos vs Fakta',catClass:'c3',iconClass:'i3',xp:75,title:'10 Mitos Kesehatan Reproduksi yang Salah Kaprah',desc:'Banyak informasi salah beredar. Saatnya luruskan dengan fakta ilmiah yang benar.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Mitos vs Fakta Kesehatan Reproduksi</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 6 menit baca · ⚡ +75 XP</p>
+<div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px">
+${[['Masturbasi menyebabkan kebutaan atau kebotakan','Tidak ada bukti ilmiah yang mendukung ini sama sekali.'],['Sering olahraga menurunkan kesuburan laki-laki','Olahraga teratur justru meningkatkan kadar testosteron dan kesehatan reproduksi.'],['Ukuran fisik menentukan kejantanan','Kejantanan ditentukan oleh karakter dan kesehatan, bukan ukuran fisik.'],['Cowok tidak perlu peduli kesehatan reproduksi sebelum menikah','Menjaga kesehatan reproduksi dimulai sejak remaja untuk mencegah masalah di masa depan.']].map(([m,f])=>`<div style="border-radius:var(--r);overflow:hidden"><div style="background:rgba(255,60,60,0.08);border:1px solid rgba(255,60,60,0.2);padding:12px 16px;color:#f77">❌ MITOS: ${m}</div><div style="background:rgba(80,255,100,0.06);border:1px solid rgba(80,255,100,0.15);border-top:none;padding:12px 16px;color:#4f9">✅ FAKTA: ${f}</div></div>`).join('')}
+</div>`},
+  {id:10,icon:'🧘',cat:'Kesehatan Mental',catClass:'c4',iconClass:'i4',xp:50,title:'Kesehatan Mental & Hubungan Sehat',desc:'Cara jaga kesehatan mental, kelola emosi, dan bangun hubungan yang sehat dan saling menghormati.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Kesehatan Mental & Hubungan Sehat</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 5 menit baca · ⚡ +50 XP</p>
+<p style="line-height:1.75;margin-bottom:16px">Cowok juga boleh ngerasa sedih, stres, dan butuh support. Itu bukan kelemahan.</p>
+<h3 style="font-size:1.1rem;font-weight:700;margin:20px 0 10px">Tanda-tanda Hubungan Sehat</h3>
+<ul style="padding-left:20px;line-height:2.1;margin-bottom:20px"><li>Saling menghormati batasan satu sama lain</li><li>Komunikasi terbuka dan jujur</li><li>Tidak ada tekanan atau paksaan</li><li>Mendukung pertumbuhan satu sama lain</li></ul>
+<div style="background:rgba(0,245,255,0.06);border:1px solid var(--border);border-radius:var(--r);padding:16px"><strong style="color:var(--neon)">💬 Ingat:</strong> Meminta bantuan bukan tanda kelemahan. Itu justru tanda kedewasaan.</div>`},
+  {id:11,icon:'🛡️',cat:'Pencegahan',catClass:'c5',iconClass:'i5',xp:100,title:'Penyakit Menular Seksual: Kenali & Cegah',desc:'Informasi faktual dan tidak menghakimi tentang PMS. Pencegahan lebih baik dari pengobatan.',
+  content:`<h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Penyakit Menular Seksual (PMS)</h2>
+<p style="color:var(--muted);margin-bottom:24px">⏱ 7 menit baca · ⚡ +100 XP</p>
+<ul style="padding-left:20px;line-height:2.1;margin-bottom:20px"><li>HIV/AIDS — bisa dikelola dengan pengobatan modern</li><li>Gonore — bisa diobati dengan antibiotik</li><li>Sifilis — bisa disembuhkan jika terdeteksi dini</li><li>Klamidia — sering tanpa gejala, perlu tes rutin</li></ul>
+<h3 style="font-size:1.1rem;font-weight:700;margin:20px 0 10px">Pencegahan</h3>
+<ul style="padding-left:20px;line-height:2.1;margin-bottom:20px"><li>Setia pada pasangan</li><li>Penggunaan kondom yang benar</li><li>Tes kesehatan rutin</li><li>Vaksinasi (HPV, Hepatitis B)</li></ul>`},
+];
+
+// ============ QUIZ DATA ============
+const quizData = [
+  {q:"Apa definisi kesehatan reproduksi menurut WHO?",opts:["Bebas dari penyakit kelamin","Sejahtera fisik, mental, dan sosial terkait sistem reproduksi","Kemampuan memiliki keturunan","Kesehatan organ intim saja"],ans:1,exp:"WHO mendefinisikan kesehatan reproduksi sebagai kondisi sejahtera secara fisik, mental, dan sosial — bukan sekadar bebas dari penyakit."},
+  {q:"Di mana sperma diproduksi pada laki-laki?",opts:["Epididimis","Prostat","Testis","Vas Deferens"],ans:2,exp:"Sperma diproduksi di testis melalui proses yang disebut spermatogenesis."},
+  {q:"Organ apa yang berfungsi mematangkan sperma setelah diproduksi?",opts:["Testis","Epididimis","Prostat","Vesikula Seminalis"],ans:1,exp:"Epididimis adalah tempat pematangan sperma. Prosesnya memakan waktu sekitar 2–3 minggu."},
+  {q:"Penyebab utama bau badan saat pubertas adalah...",opts:["Keringat yang kotor","Bakteri yang memecah keringat","Kurangnya mandi","Pakaian yang basah"],ans:1,exp:"Keringat sendiri hampir tidak berbau. Bakteri di permukaan kulit yang memecah komponen keringat itulah yang menghasilkan bau."},
+  {q:"Mimpi basah pada remaja laki-laki adalah...",opts:["Tanda penyakit berbahaya","Sesuatu yang memalukan","Kondisi alami dan sehat","Tanda kekurangan vitamin"],ans:2,exp:"Mimpi basah adalah proses biologis normal dan tanda sistem reproduksi bekerja baik."},
+];
+
+const mythData = [
+  {s:"Jerawat muncul karena jarang mencuci muka",ans:false,exp:"Jerawat terutama dipicu oleh hormon, bukan kotoran. Mencuci muka terlalu sering justru bisa mengiritasi kulit."},
+  {s:"Pubertas pada laki-laki bisa dimulai sejak usia 9 tahun",ans:true,exp:"Benar! Kisaran normal pubertas laki-laki adalah 9–14 tahun."},
+  {s:"Pornografi adalah cara terbaik untuk belajar tentang seks",ans:false,exp:"Pornografi adalah produk hiburan yang direkayasa, bukan edukasi seksual."},
+  {s:"Bau badan berasal dari bakteri yang memecah keringat, bukan keringat itu sendiri",ans:true,exp:"Benar! Keringat hampir tidak berbau. Bakteri Apocrine di kulit yang menyebabkan bau."},
+  {s:"Mimpi basah adalah tanda seseorang tidak bisa mengontrol diri",ans:false,exp:"Mimpi basah terjadi saat tidur dan tidak bisa dikontrol secara sadar."},
+  {s:"Skrotum berfungsi mengatur suhu testis agar lebih dingin dari suhu tubuh",ans:true,exp:"Benar! Produksi sperma optimal terjadi pada suhu sedikit lebih rendah dari suhu tubuh normal."},
+];
+
+const spinQuestions = [
+  "Apa yang dimaksud dengan kesehatan reproduksi menurut WHO?",
+  "Sebutkan 2 organ reproduksi eksternal laki-laki!",
+  "Apa fungsi epididimis dalam sistem reproduksi?",
+  "Kenapa skrotum terletak di luar tubuh?",
+  "Apa penyebab sebenarnya dari bau badan saat pubertas?",
+  "Mengapa jerawat muncul saat pubertas?",
+  "Apakah mimpi basah itu normal? Jelaskan!",
+  "Sebutkan 1 dampak negatif pornografi pada otak remaja berdasarkan sains!",
+];
+
+const memoryPairs = [
+  {id:1,emoji:'🧬',label:'DNA'},{id:2,emoji:'🏃',label:'Olahraga'},
+  {id:3,emoji:'💊',label:'Nutrisi'},{id:4,emoji:'😴',label:'Tidur'},
+  {id:5,emoji:'🛡️',label:'Proteksi'},{id:6,emoji:'🧠',label:'Mental'},
+  {id:7,emoji:'🔬',label:'Sains'},{id:8,emoji:'💧',label:'Hidrasi'},
+];
+
+const forumPosts = [
+  {user:'BroAnon007',avatar:'🎭',anon:true,time:'2 jam lalu',text:'Gue mau nanya, normal ga kalo suara gue tiba-tiba parau banget waktu lagi ngomong? Kadang malu soalnya...',likes:24,replies:[{user:'HealthBro99',av:'🧑',text:'Bro ini 100% normal! Itu namanya voice break atau mutasi suara. Terjadi karena pita suara lo lagi berkembang akibat testosteron. Dalam beberapa bulan bakal stabil kok!'}]},
+  {user:'CoolDude123',avatar:'😎',anon:false,time:'5 jam lalu',text:'Baru baca artikel tentang organ reproduksi di sini. Informatif banget, ternyata banyak yang aku belum tahu. Thanks admin!',likes:45,replies:[]},
+  {user:'AnonymousBro',avatar:'🔒',anon:true,time:'1 hari lalu',text:'Ada yang bisa kasih saran ga untuk manage stress waktu ujian? Ngerasa efek ke badan juga nih...',likes:31,replies:[{user:'HealthBro99',av:'🧑',text:'Stress emang pengaruh ke hormon bro. Coba olahraga ringan 20-30 menit, tidur cukup, dan kurangi kafein.'}]},
+];
+
+const leaderboardData = [
+  {rank:1,name:'EliteHealthBro',av:'👑',badge:'Master Health',pts:4250},
+  {rank:2,name:'SmartDude99',av:'🧠',badge:'Bro Pintar',pts:3810},
+  {rank:3,name:'NightOwl420',av:'🦉',badge:'Bro Pintar',pts:3200},
+  {rank:4,name:'HealthFreak07',av:'💪',badge:'Bro Aktif',pts:2750},
+  {rank:5,name:'Anonymous303',av:'🎭',badge:'Bro Pemula',pts:2100},
+  {rank:6,name:'CoolBro88',av:'😎',badge:'Bro Pemula',pts:1850},
+  {rank:7,name:'KuliahSehat',av:'📚',badge:'Bro Pemula',pts:1200},
+];
+
+// ============ INIT ============
+window.onload = () => { renderMateri(); renderForum(); renderLeaderboard(); updateXPUI(); };
+
+// ============ ROUTING ============
+function showSection(id){
+  document.querySelectorAll('.section-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sec-tab').forEach(t=>t.classList.remove('active'));
+  const panel=document.getElementById('panel-'+id);
+  if(panel)panel.classList.add('active');
+  const map={home:0,materi:1,games:2,akun:3,forum:4,konsultasi:5,gamifikasi:6};
+  const tabs=document.querySelectorAll('.sec-tab');
+  if(map[id]!==undefined&&tabs[map[id]])tabs[map[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ============ MATERI ============
+function renderMateri(){
+  const grid=document.getElementById('materiGrid');
+  if(!grid)return;
+  grid.innerHTML=materiData.map(m=>{
+    const sudahDibaca = readMateri.has(m.id);
+    return `<a class="cat-card ${m.catClass}" onclick="openMateri(${m.id});return false;" href="#">
+      <div class="cat-icon ${m.iconClass}">${m.icon}</div>
+      <h3>${m.title}</h3>
+      <p>${m.desc}</p>
+      <div class="cat-meta">
+        <span class="${m.cat==='Fun Fact'?'fun-badge':'badge'}">${m.cat}</span>
+        <span class="xp-badge">+${m.xp} XP</span>
+        ${sudahDibaca ? '<span class="read-badge">✅ Sudah Dibaca</span>' : ''}
+      </div>
+    </a>`;
+  }).join('');
+}
+
+function openMateri(id){
+  const m=materiData.find(x=>x.id===id);
+  if(!m)return;
+  document.getElementById('materiGrid').closest('section').style.display='none';
+  const sec=document.getElementById('artikelSection');
+  sec.style.display='block';
+  const sudahDibaca = readMateri.has(m.id);
+  document.getElementById('artikelContent').innerHTML=`
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:32px">
+      ${m.content}
+      <button class="btn btn-primary" id="btnSelesai" onclick="selesaiBaca(${m.id}, event)" style="margin-top:20px;${sudahDibaca?'opacity:.5;cursor:not-allowed':''}">
+        ${sudahDibaca ? '✅ Sudah Dibaca' : `✅ Selesai Baca (+${m.xp} XP)`}
+      </button>
+      ${sudahDibaca ? '<p style="font-size:0.78rem;color:var(--muted);margin-top:8px">XP dari materi ini sudah pernah kamu klaim.</p>' : ''}
+    </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function selesaiBaca(id, event){
+  if(readMateri.has(id)) return;
+  readMateri.add(id);
+  const m=materiData.find(x=>x.id===id);
+  earnXP(m.xp, m.title, event);
+  renderMateri();
+  const btn=document.getElementById('btnSelesai');
+  if(btn){
+    btn.textContent='✅ Sudah Dibaca';
+    btn.style.opacity='.5';btn.style.cursor='not-allowed';
+    btn.insertAdjacentHTML('afterend','<p style="font-size:0.78rem;color:var(--muted);margin-top:8px">XP dari materi ini sudah pernah kamu klaim.</p>');
+  }
+}
+
+function closeArtikel(){
+  document.getElementById('artikelSection').style.display='none';
+  document.getElementById('materiGrid').closest('section').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ============ GAMES ============
+function showGame(type){
+  document.getElementById('gameListSection').style.display='none';
+  document.getElementById('gameArea').style.display='block';
+  document.getElementById('gameArea').scrollIntoView({behavior:'smooth'});
+  if(type==='quiz')renderQuiz();
+  else if(type==='myth')renderMyth();
+  else if(type==='spin')renderSpin();
+  else if(type==='memory')renderMemory();
+}
+function closeGame(){
+  document.getElementById('gameArea').style.display='none';
+  document.getElementById('gameListSection').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// QUIZ
+let quizIdx=0,quizScore=0,quizAnswered=false;
+function renderQuiz(){
+  quizIdx=0;quizScore=0;
+  document.getElementById('gameContent').innerHTML=`<div class="quiz-wrapper"><div class="quiz-top"><span style="font-size:0.82rem;color:var(--muted)" id="qNum">1/${quizData.length}</span><div class="quiz-progress"><div class="quiz-bar" id="qBar" style="width:${(1/quizData.length)*100}%"></div></div><span class="q-score" id="qScore">0 pts</span></div><div id="qBody"></div></div>`;
+  showQuestion();
+}
+function showQuestion(){
+  const q=quizData[quizIdx];quizAnswered=false;
+  document.getElementById('qNum').textContent=`${quizIdx+1}/${quizData.length}`;
+  document.getElementById('qBar').style.width=`${((quizIdx+1)/quizData.length)*100}%`;
+  document.getElementById('qBody').innerHTML=`<div class="quiz-q">${q.q}</div><div class="quiz-options">${q.opts.map((o,i)=>`<button class="q-opt" onclick="answerQ(${i},event)">${o}</button>`).join('')}</div><div class="quiz-explain" id="qExplain"><strong>💡 Penjelasan:</strong> ${q.exp}</div><button class="btn btn-primary" id="qNext" style="width:100%;justify-content:center;display:none" onclick="nextQ()">${quizIdx<quizData.length-1?'Soal Berikutnya →':'Lihat Hasil 🏆'}</button>`;
+}
+function answerQ(i, event){
+  if(quizAnswered)return;quizAnswered=true;
+  const q=quizData[quizIdx];const opts=document.querySelectorAll('.q-opt');
+  opts[q.ans].classList.add('correct');
+  if(i!==q.ans){opts[i].classList.add('wrong');}
+  else{
+    quizScore+=10;
+    document.getElementById('qScore').textContent=quizScore+' pts';
+    earnXP(10,'Quiz', event);
+  }
+  document.getElementById('qExplain').classList.add('show');
+  document.getElementById('qNext').style.display='flex';
+  opts.forEach(o=>o.disabled=true);
+}
+function nextQ(){
+  quizIdx++;
+  if(quizIdx>=quizData.length){
+    document.getElementById('qBody').innerHTML=`<div style="text-align:center;padding:20px 0"><div style="font-size:3rem;margin-bottom:16px">🏆</div><h2 style="font-size:1.8rem;font-weight:800;margin-bottom:8px">Quiz Selesai!</h2><p style="color:var(--muted);margin-bottom:20px">Kamu menjawab benar ${quizScore/10} dari ${quizData.length} soal</p><button class="btn btn-primary" onclick="renderQuiz()">Main Lagi 🔄</button></div>`;
+  }else showQuestion();
+}
+
+// MYTH
+let mythIdx=0,mythScore=0;
+function renderMyth(){
+  mythIdx=0;mythScore=0;
+  document.getElementById('gameContent').innerHTML=`<div class="myth-wrapper"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem">Mitos vs Fakta</span><span class="q-score" id="mythScore">0 / ${mythData.length}</span></div><div id="mythBody"></div></div>`;
+  showMyth();
+}
+function showMyth(){
+  if(mythIdx>=mythData.length){
+    document.getElementById('mythBody').innerHTML=`<div style="text-align:center;padding:20px 0"><div style="font-size:3rem;margin-bottom:16px">🔍</div><h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px">Selesai!</h2><p style="color:var(--muted);margin-bottom:20px">Skor: ${mythScore}/${mythData.length}</p><button class="btn btn-primary" onclick="renderMyth()">Main Lagi 🔄</button></div>`;return;
+  }
+  const m=mythData[mythIdx];
+  document.getElementById('mythBody').innerHTML=`<div class="myth-card">${m.s}</div><div class="myth-btns"><button class="btn-myth myth" onclick="answerMyth(false,event)">❌ MITOS</button><button class="btn-myth fact" onclick="answerMyth(true,event)">✅ FAKTA</button></div><div class="myth-result" id="mythResult"></div>`;
+}
+function answerMyth(ans, event){
+  const m=mythData[mythIdx];const correct=ans===m.ans;
+  if(correct){mythScore++;earnXP(5,'Mitos vs Fakta', event);}
+  document.getElementById('mythScore').textContent=`${mythScore} / ${mythData.length}`;
+  const res=document.getElementById('mythResult');res.className='myth-result show '+(correct?'win':'lose');
+  res.innerHTML=`${correct?'✅ Benar!':'❌ Salah!'} ${m.exp}`;
+  document.querySelectorAll('.btn-myth').forEach(b=>b.disabled=true);
+  setTimeout(()=>{mythIdx++;showMyth();},2200);
+}
+
+// SPIN
+let spinAngle=0,spinning=false;
+function renderSpin(){
+  const colors=['#0099ff','#7b2fff','#00f5ff','#ff6b35','#4f9','#ffd700','#f44','#0fd'];
+  const slices=spinQuestions.length;const sliceAngle=360/slices;let paths='';
+  spinQuestions.forEach((_,i)=>{
+    const s=(i*sliceAngle)*Math.PI/180,e=((i+1)*sliceAngle)*Math.PI/180;
+    const x1=130+120*Math.cos(s-Math.PI/2),y1=130+120*Math.sin(s-Math.PI/2),x2=130+120*Math.cos(e-Math.PI/2),y2=130+120*Math.sin(e-Math.PI/2);
+    paths+=`<path d="M130,130 L${x1},${y1} A120,120 0 0,1 ${x2},${y2} Z" fill="${colors[i]}" opacity="0.85"/>`;
+    const ma=(i+0.5)*sliceAngle*Math.PI/180,tx=130+70*Math.cos(ma-Math.PI/2),ty=130+70*Math.sin(ma-Math.PI/2);
+    paths+=`<text x="${tx}" y="${ty}" text-anchor="middle" dominant-baseline="middle" font-size="18" font-family="Syne" fill="#fff" transform="rotate(${(i+0.5)*sliceAngle},${tx},${ty})">${i+1}</text>`;
+  });
+  document.getElementById('gameContent').innerHTML=`<div style="max-width:400px;margin:0 auto;text-align:center"><h3 style="font-size:1.3rem;font-weight:800;margin-bottom:4px">Spin Wheel Pertanyaan</h3><p style="color:var(--muted);font-size:0.88rem;margin-bottom:20px">Putar roda dan jawab pertanyaan yang muncul!</p><div style="position:relative;margin:0 auto 20px;width:260px;height:260px"><svg viewBox="0 0 260 260" id="wheelSvg" style="transition:transform 3s cubic-bezier(.17,.67,.12,1)"><circle cx="130" cy="130" r="125" fill="var(--card2)" stroke="var(--border)" stroke-width="2"/>${paths}<circle cx="130" cy="130" r="18" fill="var(--bg)" stroke="var(--neon2)" stroke-width="2"/><text x="130" y="135" text-anchor="middle" font-size="13" font-family="Syne" font-weight="bold" fill="var(--neon2)">GO</text></svg><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:1.5rem">▼</div></div><div style="margin-bottom:24px"><button class="btn btn-neon" style="font-size:1rem;padding:12px 36px" onclick="doSpin(event)" id="spinBtn">🎰 Putar!</button></div><div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;min-height:80px;display:flex;align-items:center;justify-content:center;font-size:0.92rem;color:var(--muted)" id="spinResult">Putar roda untuk mendapatkan pertanyaan...</div></div>`;
+}
+function doSpin(event){
+  if(spinning)return;spinning=true;document.getElementById('spinBtn').disabled=true;
+  spinAngle+=5*360+Math.random()*360;
+  document.getElementById('wheelSvg').style.transform=`rotate(${spinAngle}deg)`;
+  setTimeout(()=>{
+    spinning=false;document.getElementById('spinBtn').disabled=false;
+    const idx=Math.floor(((360-(spinAngle%360))%360)/(360/spinQuestions.length))%spinQuestions.length;
+    const res=document.getElementById('spinResult');res.style.color='var(--text)';
+    res.innerHTML=`<div><strong style="color:var(--neon2);display:block;margin-bottom:6px">❓ Pertanyaan ${idx+1}:</strong>${spinQuestions[idx]}</div>`;
+    earnXP(20,'Spin Wheel', event);
+  },3000);
+}
+
+// MEMORY
+let memFlipped=[],memMatched=[];
+function renderMemory(){
+  const pairs=[...memoryPairs,...memoryPairs].sort(()=>Math.random()-.5);
+  memFlipped=[];memMatched=[];
+  document.getElementById('gameContent').innerHTML=`<div style="max-width:500px;margin:0 auto"><div style="display:flex;justify-content:space-between;margin-bottom:16px;align-items:center"><h3 style="font-size:1.2rem;font-weight:800">Memory Card</h3><span id="memScore" style="font-family:'Syne',sans-serif;color:var(--neon2);font-weight:700">0 / ${memoryPairs.length} cocok</span></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:360px;margin:0 auto 20px" id="memGrid"></div><button class="btn btn-outline" onclick="renderMemory()" style="width:100%;justify-content:center;margin-top:16px">🔄 Reset</button></div>`;
+  document.getElementById('memGrid').innerHTML=pairs.map((p,i)=>`<div id="mc${i}" onclick="flipMem(${i},${p.id},event)" style="aspect-ratio:1;border-radius:var(--r);cursor:pointer;position:relative;perspective:500px;transform-style:preserve-3d;transition:.4s"><div style="position:absolute;inset:0;border-radius:var(--r);display:flex;align-items:center;justify-content:center;background:var(--card2);border:1.5px solid var(--border);font-size:1.6rem;backface-visibility:hidden;transform:rotateY(180deg)">${p.emoji}</div><div style="position:absolute;inset:0;border-radius:var(--r);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg3),var(--card2));border:1.5px solid var(--border);font-size:1.2rem;color:var(--neon2);font-weight:700;backface-visibility:hidden">?</div></div>`).join('');
+}
+function flipMem(idx,pairId,event){
+  const card=document.getElementById('mc'+idx);
+  if(!card||card.style.transform==='rotateY(180deg)'||memMatched.includes(pairId)||memFlipped.length>=2)return;
+  card.style.transform='rotateY(180deg)';memFlipped.push({idx,pairId,card});
+  if(memFlipped.length===2){
+    if(memFlipped[0].pairId===memFlipped[1].pairId){
+      memMatched.push(pairId);memFlipped=[];
+      earnXP(5,'Memory Card', event);
+      const s=document.getElementById('memScore');if(s)s.textContent=`${memMatched.length} / ${memoryPairs.length} cocok`;
+      if(memMatched.length===memoryPairs.length){showNotif('🃏 Selesai!','Semua pasangan cocok! Kerja bagus, Bro!');}
+    }else{
+      const f=[...memFlipped];memFlipped=[];
+      setTimeout(()=>f.forEach(x=>{const c=document.getElementById('mc'+x.idx);if(c)c.style.transform='';}),1000);
+    }
+  }
+}
+
+// ============ AUTH ============
+function switchAuth(tab){
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',i===(tab==='login'?0:1)));
+  document.getElementById('loginForm').classList.toggle('active',tab==='login');
+  document.getElementById('registerForm').classList.toggle('active',tab==='register');
+}
+function toggleAnon(){
+  const t=document.getElementById('anonToggle');t.classList.toggle('on');
+  if(t.classList.contains('on'))document.getElementById('regUsername').value='Bro'+Math.floor(Math.random()*9000+1000);
+}
+function fakeLogin(){showNotif('👋 Selamat Datang!','Login berhasil. Semangat belajar, Bro!')}
+function fakeRegister(){showNotif('🎉 Akun Dibuat!','Selamat bergabung! Kamu dapat badge Bro Pemula.')}
+
+// ============ FORUM ============
+function renderForum(){
+  const list=document.getElementById('postList');if(!list)return;
+  list.innerHTML=forumPosts.map((p,i)=>`<div class="post"><div class="post-header"><div class="post-avatar">${p.avatar}</div><div class="post-meta"><h4>${p.user}${p.anon?'<span class="anon-label">anonim</span>':''}</h4><span>${p.time}</span></div></div><div class="post-body">${p.text}</div><div class="post-actions"><button class="post-act" onclick="likePost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span>${p.likes}</span></button><button class="post-act" onclick="toggleReply('rb${i}')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Balas (${p.replies.length})</button></div><div class="reply-box" id="rb${i}"><textarea class="reply-input" rows="2" placeholder="Balas anonim..." id="ri${i}"></textarea><div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="btn btn-primary" style="font-size:0.82rem;padding:7px 14px" onclick="sendReply(${i})">Kirim</button></div><div class="replies">${p.replies.map(r=>`<div class="reply"><div class="reply-av">${r.av}</div><div class="reply-content"><h5>${r.user}</h5><p>${r.text}</p></div></div>`).join('')}</div></div></div>`).join('');
+}
+function toggleReply(id){document.getElementById(id)?.classList.toggle('open')}
+function likePost(btn){const s=btn.querySelector('span');s.textContent=parseInt(s.textContent)+1;}
+function sendReply(idx){
+  const input=document.getElementById('ri'+idx);if(!input.value.trim())return;
+  document.querySelector(`#rb${idx} .replies`).innerHTML+=`<div class="reply"><div class="reply-av">🎭</div><div class="reply-content"><h5>Kamu <span class="anon-label">anonim</span></h5><p>${input.value}</p></div></div>`;
+  input.value='';
+}
+function addPost(){
+  const input=document.getElementById('postInput');if(!input.value.trim())return;
+  forumPosts.unshift({user:'AnonymousBro',avatar:'🎭',anon:true,time:'baru saja',text:input.value,likes:0,replies:[]});
+  renderForum();input.value='';showNotif('💬 Post Terkirim!','Postinganmu sudah muncul di forum.');
+}
+
+// ============ LEADERBOARD ============
+function renderLeaderboard(){
+  const lb=document.getElementById('leaderboard');if(!lb)return;
+  lb.innerHTML=`<div class="lb-header"><h3>🏆 Top Players</h3><span style="font-size:0.78rem;color:var(--muted)">Update: hari ini</span></div>${leaderboardData.map(p=>`<div class="lb-row"><div class="lb-rank ${p.rank===1?'gold':p.rank===2?'silver':p.rank===3?'bronze':''}">${p.rank<=3?['🥇','🥈','🥉'][p.rank-1]:p.rank}</div><div class="lb-avatar">${p.av}</div><div class="lb-name">${p.name}</div><div class="lb-badge">${p.badge}</div><div class="lb-pts">${p.pts.toLocaleString()} XP</div></div>`).join('')}`;
+}
+
+// ============ CHAT ============
+const autoReplies=['Halo Bro! Pertanyaan yang bagus. Bisa kamu ceritakan lebih detail?','Terima kasih sudah mau bercerita. Ini wajar dialami banyak remaja.','Untuk masalah ini, aku sarankan kamu juga baca materi di Kesehatan Mental ya!','Tenang bro, kamu tidak sendirian. Banyak cowok mengalami hal yang sama.','Kalau kamu merasa khawatir, konsultasi dengan dokter adalah langkah terbaik.'];
+let chatIdx=0;
+function sendChat(){
+  const input=document.getElementById('chatInput');if(!input.value.trim())return;
+  const msgs=document.getElementById('chatMessages');
+  const time=new Date().toLocaleTimeString('id',{hour:'2-digit',minute:'2-digit'});
+  msgs.innerHTML+=`<div class="msg mine"><div class="msg-av">🎭</div><div><div class="msg-bubble">${input.value}</div><div class="msg-time">${time}</div></div></div>`;
+  input.value='';msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    msgs.innerHTML+=`<div class="msg"><div class="msg-av">👨‍⚕️</div><div><div class="msg-bubble">${autoReplies[chatIdx++%autoReplies.length]}</div><div class="msg-time">${time}</div></div></div>`;
+    msgs.scrollTop=msgs.scrollHeight;
+  },1200);
+}
+
+// ============ NOTIF ============
+function showNotif(title,msg){
+  document.getElementById('notifTitle').textContent=title;
+  document.getElementById('notifMsg').textContent=msg;
+  const n=document.getElementById('notif');n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'),3500);
+}
+</script>
+</body>
+</html>
